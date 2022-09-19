@@ -6,6 +6,31 @@ trigger:
 pool:  
   vmImage: ubuntu-latest 
 
-steps:
-- script: echo Runing on Window
-  displayName: 'Run a one-line script'
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - bash: echo "Do the build"
+- stage: Dev
+  jobs:
+  - deployment: DevDeployment
+    environment: Dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - script: echo "deploy to DEV"
+        
+  - deployment: QADeployment
+    environment: QA
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - script: echo "deploy to DEV"
+        
+
+
+
