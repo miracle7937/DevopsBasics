@@ -15,11 +15,17 @@ jobs:
   - script: echo Hello, world!
     displayName: 'Run a one-line script'
 
-- job: SecindJob
+- job: SecondJob
+  dependsOn: FirstJob
   steps:
   - script: echo Hello, world 22222222222!
     displayName: 'Run a one-line job2'
   
+- job: ThirdJob
+  dependsOn: SecondJob
+  steps:
+  - script: echo Hello, Third Jobs!
+    displayName: 'Run a one-line job3'
 
 
 
